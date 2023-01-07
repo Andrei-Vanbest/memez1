@@ -8,7 +8,7 @@ import memesData from './memesData.js'
         randomImage: "http://i.imgflip.com/1bij.jpg" 
     })
 
-    const [allMemeImages, setAllMemeImages] = React.useState(memesData)
+    
 
 
 
