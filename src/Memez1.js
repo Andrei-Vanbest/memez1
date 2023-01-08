@@ -8,19 +8,30 @@ import memesData from './memesData.js'
         randomImage: "http://i.imgflip.com/1bij.jpg" 
     })
 
+    const [allMemes, setAllMemes] = React.useState([])
+
+    React.useEffect(() => {
+        async function getMemes() {
+            const res = await fetch("https://api.imgflip.com/get_memes")
+            const data = await res.json()
+            setAllMemes(data.data.memes)
+        }
+        getMemes()
+    }, [])
+
     
 
 
 
 
     
-        
+)
 
         function getMemeImage() {
-            const memesArray = memesData.data.memes
-            const randomNumber = Math.floor(Math.random() * memesArray.length)
             
-            const url = memesArray[randomNumber].url
+            const randomNumber = Math.floor(Math.random() * allMemes.length)
+            
+            const url = allMemes[randomNumber].url
         setMeme(prevMeme => ({
             ...prevMeme,
             randomImage: url
@@ -44,7 +55,7 @@ return (
             <div className="form">
                 <input 
                     type="text"
-                    placeholder="Top text"
+                    placeholder="Comments1"
                     className="form--input"
                     name="topText"
                     value={meme.topText}
@@ -52,7 +63,7 @@ return (
                 />
                 <input 
                     type="text"
-                    placeholder="Bottom text"
+                    placeholder="Comments2"
                     className="form--input"
                     name="bottomText"
                     value={meme.bottomText}
@@ -68,8 +79,8 @@ return (
             <img 
             
             src={meme.randomImage}  className="meme--image" />
-             <h2 className="meme--text top">{meme.topText}</h2>
-                <h2 className="meme--text bottom">{meme.bottomText}</h2>
+             <h2 style={{margin:'10px'}}className="meme--text top"><spam style={{margin:"20px"}}>Comments1</spam>{meme.topText}</h2>
+                <h2 className="meme--text bottom"><spam style={{margin:"20px"}}>Comments2</spam>{meme.bottomText}</h2>
             </div>
         </main>
     )
